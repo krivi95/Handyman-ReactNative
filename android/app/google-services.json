@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "868787995183",
+    "firebase_url": "https://handyman-react.firebaseio.com",
+    "project_id": "handyman-react",
+    "storage_bucket": "handyman-react.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:868787995183:android:1a0730863e53157d",
+        "android_client_info": {
+          "package_name": "com.handyman"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "868787995183-ov8cds089dn23eopclqgom6o7usr6u1u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvXjiJhuDd0SU6OxWkT_NV5VU_S2CZLGo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
