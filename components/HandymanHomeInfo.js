@@ -1,26 +1,26 @@
 import React, {Component} from 'react';
 import {StyleSheet ,Text, View, TouchableOpacity} from 'react-native';
 
-export default class HandymanHome extends Component {
+export default class HandymanHomeInfo extends Component {
   render() {
     return (
         <TouchableOpacity 
             key={this.props.keyvalue} 
             style={styles.handymanShortInfo}
-            onPress={() => this.props.navigation.navigate('HomepageHandymanScreen', {
-                handymanData: this.props.handymanData
-            })}
         >
-            <Text style={styles.handymanName}>{this.props.handymanData.firstName}</Text>
-            <Text style={styles.handymanText}>Rating: {this.props.handymanData.rating}/5</Text>
+            <Text style={styles.handymanName}>{this.props.handymanData.username}</Text>            
+            <Text style={styles.handymanText}>Speciality: {this.props.handymanData.speciality}</Text>            
+            <Text style={styles.handymanText}>First name: {this.props.handymanData.firstName}</Text>
+            <Text style={styles.handymanText}>Last name: {this.props.handymanData.lastName}</Text>            
+            <Text style={styles.handymanText}>Tel. number: {this.props.handymanData.number}</Text>
+            <Text style={styles.handymanText}>Address: {this.props.handymanData.address}</Text>
             <Text style={styles.handymanText}>Jobs done: {this.props.handymanData.jobsDone}</Text>
-            <Text style={styles.handymanText}>Comments: {this.props.handymanData.commentsNumber}</Text>
+            <Text style={styles.handymanText}>Rating: {this.props.handymanData.rating}/5</Text>
             <TouchableOpacity 
                 style={styles.handymanButton}
             >
                 <Text style={styles.handymanButtonText}>{this.props.handymanData.speciality[0]}</Text>
-            </TouchableOpacity>
-             
+            </TouchableOpacity>             
         </TouchableOpacity>      
     );
   }
@@ -29,7 +29,6 @@ export default class HandymanHome extends Component {
 const styles = StyleSheet.create({
     handymanShortInfo: {
         padding: 20,
-        paddingRight: 100,
         borderBottomWidth: 4,
         borderBottomColor: '#ededed',
         borderTopWidth: 2,
@@ -44,12 +43,14 @@ const styles = StyleSheet.create({
         marginRight: '10%'
     },
     handymanName: {
-        paddingLeft: '30%',
+        paddingLeft: '20%',
         fontWeight: 'bold',
-        fontSize: 15,
+        fontSize: 16,
     },
     handymanText: {
-        paddingLeft: '30%',
+        fontSize: 16,
+        paddingLeft: '20%',
+        paddingTop: 2
     },
     handymanButton: {
         position: 'absolute',
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#c0c0c0',
         padding: 10,
-        top: '30%',
+        top: '10%',
         left: '5%',
         borderRadius: 40,
         width: 45,

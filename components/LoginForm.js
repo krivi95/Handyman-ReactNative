@@ -9,7 +9,7 @@ export default class LoginForm extends Component {
         this.state = {
             username: '',
             password: ''    
-        }
+        };
     }
 
     async logIn() {

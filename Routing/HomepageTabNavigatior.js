@@ -3,7 +3,7 @@ import { Text, View, Button } from 'react-native';
 import { createBottomTabNavigator,createStackNavigator, createAppContainer } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 //importing screens
-import {HomepageScreen, LoginScreen, RegisterScreen} from '../screens/Screens'
+import {HomepageScreen, LoginScreen, RegisterScreen, HomepageHandymanScreen} from '../screens/Screens'
 
 
 const HomeStack = createStackNavigator({
@@ -12,6 +12,7 @@ const HomeStack = createStackNavigator({
         navigationOptions:({navigation})=>{
             return{
               headerTitle: 'Find handyman',
+              headerTintColor: 'white',
               headerTitleStyle:{
                   color: 'white'
               },
@@ -20,7 +21,22 @@ const HomeStack = createStackNavigator({
               }
             }  
           }
-    } 
+    },
+    HomepageHandymanScreen:{
+      screen: HomepageHandymanScreen,
+      navigationOptions:({navigation})=>{
+          return{
+            headerTitle: 'Handyman info',
+            headerTintColor: 'white',
+            headerTitleStyle:{
+                color: 'white'
+            },
+            headerStyle:{
+                backgroundColor: '#0080ff'
+            }
+          }  
+        }
+  } 
   });  
 
   const LoginStack = createStackNavigator({

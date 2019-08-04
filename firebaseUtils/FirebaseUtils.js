@@ -15,24 +15,41 @@ export default class FirebaseUtils extends Component {
         );
         let responseJson = await response.json();
         users = [];
-          for(key in responseJson){
-            users.push(responseJson[key])
-          }
-          return users
+        for(key in responseJson){
+          users.push(responseJson[key])
+        }
+        return users
       } catch (error) {
         console.error(error);
       }
     }
     
     static async getUserByName(username){
-        users = await FirebaseUtils.getAllUsers();
-        const userExists = users.some(users => users.username == username);
-        if(userExists){
-            return users.find(users => users.username === username);
-        }
-        else{
-            return null;
-        }
+      users = await FirebaseUtils.getAllUsers();
+      const userExists = users.some(users => users.username == username);
+      if(userExists){
+          return users.find(users => users.username === username);
+      }
+      else{
+          return null;
+      }
+    }
+
+    static async getUserByType(type){
+      users = await FirebaseUtils.getAllUsers();
+      const userExists = users.some(users => users.type == type);
+      if(userExists){
+          requesteUsers = [];
+          for(let user of users){
+            if(user.type == type){
+              requesteUsers.push(user)
+            }
+          }
+          return requesteUsers;
+      }
+      else{
+          return null;
+      }
     }
 
     static createNewUser(username, password, firstName, lastName, number, address, type){
@@ -45,12 +62,51 @@ export default class FirebaseUtils extends Component {
           'lastName': lastName,
           'number': number,
           'address': address,
-          'type': type
+          'type': type,
+          'rating': '',
+          'jobsDone': '',
+          'commentsNumber':'',
+          'wage':'',
+          'speciality':''
         })
       })
         .then(res => console.log(res))
         .catch(err => console.log(err));
     }
+
+    static async getAllComments() {
+      try {
+        let response = await fetch(
+          'https://handyman-react.firebaseio.com/comments.json',
+        );
+        let responseJson = await response.json();
+        comments = [];
+          for(key in responseJson){
+            comments.push(responseJson[key])
+          }
+          return comments
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  
+    static async getCommentsForHandyman(handyman){
+      comments = await FirebaseUtils.getAllComments();
+      const commentsExists = comments.some(comments => comments.handyman == handyman);
+      if(commentsExists){
+        requesteComments = [];
+        for(let comment of comments){
+          if(comment.handyman == handyman){
+            requesteComments.push(comment)
+          }
+        }
+        return requesteComments;
+      }
+      else{
+          return null;
+      }
+    }
+  
 
   }
 

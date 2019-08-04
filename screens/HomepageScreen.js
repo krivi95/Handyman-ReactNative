@@ -1,28 +1,47 @@
 import React from 'react';
-import { Text, View, ScrollView, StyleSheet } from 'react-native';
-import Note from '../components/Handyman'
-        
+import { Text, View, ScrollView, StyleSheet, ActivityIndicator} from 'react-native';
+import HandymanHome from '../components/Handyman'       
+import FirebaseUtils from '../firebaseUtils/FirebaseUtils';
 
 export default class HomepageScreen extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      isLoading: true,
+      handymen: []
+    };    
+  }
+
+  async componentDidMount(){
+    handymen = await FirebaseUtils.getUserByType("handyman");
+    this.setState({
+      isLoading: false,
+      handymen: handymen
+    }); 
+  }  
+
   render() {
-    let handyman = {
-      name: 'Marko Nikolic',
-      rating: '4.8',
-      jobs: '13',
-      comments: '5'
-    }
-    return (
-      <View style={{ flex: 1 }}>
-        <ScrollView>
-          <Note val={handyman}/>
-          <Note val={handyman}/>
-          <Note val={handyman}/>
-          <Note val={handyman}/>
-          <Note val={handyman}/>
-          <Note val={handyman}/>
-        </ScrollView>
+    if(this.state.isLoading){
+      return (
+      <View style={styles.waitingContainer}>
+        <ActivityIndicator/>
+        <Text style={{textAlign: 'center'}}>Loading...</Text>
       </View>
-    );
+      );
+    }
+    else{
+      let handymenView = this.state.handymen.map((element, inex) => {
+        return <HandymanHome key={element.username} handymanData={element} navigation={this.props.navigation}/>
+      }); 
+      return (
+        <View style={{ flex: 1 }}>
+          <ScrollView>
+            {handymenView}
+          </ScrollView>
+        </View>
+      );
+    }
   }
 }
 
@@ -30,5 +49,10 @@ const styles = StyleSheet.create({
   scrollContainer:{
     flex: 1,
     width: '100%'
+  },
+  waitingContainer:{
+    flex: 1,
+    marginTop: 50,
+    justifyContent: 'center'
   }
 });

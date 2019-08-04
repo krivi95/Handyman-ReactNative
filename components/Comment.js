@@ -1,24 +1,19 @@
 import React, {Component} from 'react';
 import {StyleSheet ,Text, View, TouchableOpacity} from 'react-native';
 
-export default class HandymanHome extends Component {
+export default class Comment extends Component {
   render() {
     return (
         <TouchableOpacity 
             key={this.props.keyvalue} 
-            style={styles.handymanShortInfo}
-            onPress={() => this.props.navigation.navigate('HomepageHandymanScreen', {
-                handymanData: this.props.handymanData
-            })}
+            style={styles.commentShortInfo}
         >
-            <Text style={styles.handymanName}>{this.props.handymanData.firstName}</Text>
-            <Text style={styles.handymanText}>Rating: {this.props.handymanData.rating}/5</Text>
-            <Text style={styles.handymanText}>Jobs done: {this.props.handymanData.jobsDone}</Text>
-            <Text style={styles.handymanText}>Comments: {this.props.handymanData.commentsNumber}</Text>
+            <Text style={styles.commentName}>{this.props.comment.user}</Text>
+            <Text style={styles.commentText}>{this.props.comment.text}</Text>
             <TouchableOpacity 
-                style={styles.handymanButton}
+                style={styles.commentButton}
             >
-                <Text style={styles.handymanButtonText}>{this.props.handymanData.speciality[0]}</Text>
+                <Text style={styles.commentButtonText}>C</Text>
             </TouchableOpacity>
              
         </TouchableOpacity>      
@@ -27,9 +22,8 @@ export default class HandymanHome extends Component {
 }
 
 const styles = StyleSheet.create({
-    handymanShortInfo: {
+    commentShortInfo: {
         padding: 20,
-        paddingRight: 100,
         borderBottomWidth: 4,
         borderBottomColor: '#ededed',
         borderTopWidth: 2,
@@ -43,15 +37,15 @@ const styles = StyleSheet.create({
         marginLeft: '10%',
         marginRight: '10%'
     },
-    handymanName: {
+    commentName: {
         paddingLeft: '30%',
         fontWeight: 'bold',
         fontSize: 15,
     },
-    handymanText: {
+    commentText: {
         paddingLeft: '30%',
     },
-    handymanButton: {
+    commentButton: {
         position: 'absolute',
         justifyContent: 'center',
         alignItems: 'center',
@@ -63,7 +57,7 @@ const styles = StyleSheet.create({
         width: 45,
         height: 45
     },
-    handymanButtonText: {
+    commentButtonText: {
         color: 'white'
     }
 });
