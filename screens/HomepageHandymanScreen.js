@@ -40,9 +40,12 @@ export default class HomepageHandymanScreen extends React.Component {
             );
         }
         else{
-            let commentsView = this.state.comments.map((element, inex) => {
-                return <Comment key={element.user} comment={element} style={{width:'100%'}}/>
-              }); 
+            let commentsView = <Text>No comments...</Text>;
+            if(this.state.comments){
+                commentsView = this.state.comments.map((element, inex) => {
+                    return <Comment key={element.user} comment={element} style={{width:'100%'}}/>
+                }); 
+            }
             return (
                 <ScrollView>
                     <View style={styles.container}>
@@ -59,7 +62,6 @@ export default class HomepageHandymanScreen extends React.Component {
         }
     }
 }
-
 
 const styles = StyleSheet.create({
     container:{

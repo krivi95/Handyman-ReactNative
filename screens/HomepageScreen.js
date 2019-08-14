@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, ScrollView, StyleSheet, ActivityIndicator} from 'react-native';
 import HandymanHome from '../components/Handyman'       
 import FirebaseUtils from '../firebaseUtils/FirebaseUtils';
+import HandymanFilter from './../components/HandymanFilter'
 
 export default class HomepageScreen extends React.Component {
 
@@ -11,6 +12,12 @@ export default class HomepageScreen extends React.Component {
       isLoading: true,
       handymen: []
     };    
+  }
+
+  setHandymen(filteredHandymen){
+    this.setState({
+      handymen: filteredHandymen
+    }); 
   }
 
   async componentDidMount(){
@@ -36,7 +43,8 @@ export default class HomepageScreen extends React.Component {
       }); 
       return (
         <View style={{ flex: 1 }}>
-          <ScrollView>
+          <HandymanFilter handymenHandler={this.setHandymen.bind(this)}/>
+          <ScrollView style={{marginTop:38}}>
             {handymenView}
           </ScrollView>
         </View>
