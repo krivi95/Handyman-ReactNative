@@ -106,6 +106,35 @@ export default class FirebaseUtils extends Component {
           return null;
       }
     }
+
+    static async getUserFirebaseID(username){
+      try {
+        let response = await fetch(
+          'https://handyman-react.firebaseio.com/users.json',
+        );
+        let responseJson = await response.json();
+        for(key in responseJson){
+          if(responseJson[key].username == username){
+            console.log(key);
+            return key;
+          }
+        }
+        return users
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  
+    static async updateUser(newUserData){
+      console.log(newUserData);
+      key = await FirebaseUtils.getUserFirebaseID(newUserData.username);
+      fetch("https://handyman-react.firebaseio.com/users/" + key + ".json", {
+        method: "PATCH",
+        body: JSON.stringify(newUserData)
+      })
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    }
   
 
   }

@@ -1,9 +1,11 @@
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
+import UserTabNavigator from './UserTabNavigator'
 import HomepageTabNavigator from './HomepageTabNavigatior'
   
 
 const AppSwitchNavigator = createSwitchNavigator({
-  Welcome:{screen: HomepageTabNavigator}
+  Home:{screen: HomepageTabNavigator},
+  User:{screen: UserTabNavigator}
 });
 
 

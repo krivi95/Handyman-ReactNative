@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import RegisterForm from '../components/RegisterForm'        
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import RegisterForm from '../components/RegisterForm';        
 
 export default class RegisterScreen extends React.Component {
   render() {

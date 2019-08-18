@@ -15,7 +15,7 @@ export default class LoginScreen extends React.Component {
           <Text style={styles.title}>Find and book a handyman in just a few clicks...</Text>
         </View>
         <View style={styles.inputContainer}>
-          <LoginForm/>
+          <LoginForm navigation={this.props.navigation}/>
         </View>
       </View>
     );

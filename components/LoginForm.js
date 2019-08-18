@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet ,TextInput, Text, View, TouchableOpacity, Alert} from 'react-native';
+import {StyleSheet ,TextInput, Text, View, TouchableOpacity, AsyncStorage} from 'react-native';
 import FirebaseUtils from '../firebaseUtils/FirebaseUtils'
 
 export default class LoginForm extends Component {
@@ -25,7 +25,9 @@ export default class LoginForm extends Component {
                 alert('Wrong username or password.');
             }
             else{
-                alert('Successful login!');
+                //alert('Successful login!');
+                AsyncStorage.setItem("user", JSON.stringify(user));
+                this.props.navigation.navigate('User');
             }
         }
     }
