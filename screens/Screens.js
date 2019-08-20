@@ -5,6 +5,7 @@ import HomepageHandymanScreen from './HomepageHandymanScreen'
 import UserRequestsScreen from './UserRequestsScreen'
 import AccountScreen from './AccountScreen'
 import LogoutScreen from './LogoutScreen'
+import FeedbackScreen from './FeedbackScreen'
 
 export {
     HomepageScreen,
@@ -13,5 +14,6 @@ export {
     HomepageHandymanScreen,
     UserRequestsScreen,
     AccountScreen,
-    LogoutScreen
+    LogoutScreen,
+    FeedbackScreen
 }

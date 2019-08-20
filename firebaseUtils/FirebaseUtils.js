@@ -135,6 +135,51 @@ export default class FirebaseUtils extends Component {
         .then(res => console.log(res))
         .catch(err => console.log(err));
     }
+
+    static async getAllRequests() {
+      try {
+        let response = await fetch(
+          'https://handyman-react.firebaseio.com/requests.json',
+        );
+        let responseJson = await response.json();
+        requests = [];
+          for(key in responseJson){
+            requests.push(responseJson[key])
+          }
+          return requests
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
+    static async getRequestsForUser(username){
+      allRequests = await FirebaseUtils.getAllRequests();
+      const requestsExist = allRequests.some(request => request.user == username);
+      if(requestsExist){
+        requests = [];
+        for(key in allRequests){
+          requests.push(allRequests[key]);
+        }
+        return requests
+      }
+      else{
+          return null;
+      }
+    }
+
+    static async createNewComment(user, handyman, text){
+      console.log(user + handyman + text)
+      fetch("https://handyman-react.firebaseio.com/comments.json", {
+        method: "POST",
+        body: JSON.stringify({
+          'user': user,
+          'handyman': handyman,
+          'text': text
+        })
+      })
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    }
   
 
   }
