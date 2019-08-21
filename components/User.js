@@ -198,7 +198,6 @@ const styles = StyleSheet.create({
         height: 450,
         borderBottomWidth: 2,
         borderBottomColor: '#ededed',
-
         borderBottomWidth: 4,
         borderBottomColor: '#ededed',
         borderTopWidth: 2,

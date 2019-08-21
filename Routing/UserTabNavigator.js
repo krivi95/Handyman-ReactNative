@@ -3,7 +3,8 @@ import { Text, View, Button } from 'react-native';
 import { createBottomTabNavigator,createStackNavigator, createAppContainer } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 //importing screens
-import {HomepageScreen, HomepageHandymanScreen, UserRequestsScreen, AccountScreen, LogoutScreen, FeedbackScreen} from '../screens/Screens'
+import {HomepageScreen, HomepageHandymanScreen, UserRequestsScreen, AccountScreen, 
+        LogoutScreen, FeedbackScreen, CreateRequestScreen} from '../screens/Screens'
  
 
 const HomeStack = createStackNavigator({
@@ -36,7 +37,22 @@ const HomeStack = createStackNavigator({
             }
           }  
         }
-  } 
+    },
+    CreateRequestScreen:{
+      screen: CreateRequestScreen,
+      navigationOptions:({navigation})=>{
+          return{
+            headerTitle: 'Handyman info',
+            headerTintColor: 'white',
+            headerTitleStyle:{
+                color: 'white'
+            },
+            headerStyle:{
+                backgroundColor: '#0080ff'
+            }
+          }  
+        }
+    } 
   });  
 
   const UserRequestsStack = createStackNavigator({
@@ -145,7 +161,7 @@ const UserTabNavigator = createBottomTabNavigator({
       }  
   },
   {
-    initialRouteName:'UserRequestsStack',
+    initialRouteName:'HomeStack',
     defaultNavigationOptions:{
       tabBarVisible: true
     }

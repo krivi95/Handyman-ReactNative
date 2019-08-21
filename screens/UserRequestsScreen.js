@@ -24,6 +24,16 @@ export default class UserRequestsScreen extends React.Component {
     }); 
   }
 
+  async componentDidUpdate(prevProps){
+    user = await AsyncStorage.getItem("user");
+    user = JSON.parse(user);
+    requests = await FirebaseUtils.getRequestsForUser(user.username);
+    this.setState({
+      isLoading: false,
+      requests: requests
+    });
+  }
+
   render() {
     if(this.state.isLoading){
       return (

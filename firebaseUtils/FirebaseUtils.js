@@ -180,6 +180,25 @@ export default class FirebaseUtils extends Component {
         .then(res => console.log(res))
         .catch(err => console.log(err));
     }
+
+    static async createNewHandymanRequest(user, handyman, status, startDate, endDate, urgent, address, number, payment){
+      fetch("https://handyman-react.firebaseio.com/requests.json", {
+        method: "POST",
+        body: JSON.stringify({
+          'user': user,
+          'handyman': handyman,
+          'status': status,
+          'startDate': startDate,
+          'endDate': endDate,
+          'urgent': urgent,
+          'address': address,
+          'number': number,
+          'payment': payment
+        })
+      })
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    }
   
 
   }

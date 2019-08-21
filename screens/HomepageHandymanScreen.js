@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator, ScrollView} from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ActivityIndicator, ScrollView, AsyncStorage} from 'react-native';
 import FirebaseUtils from '../firebaseUtils/FirebaseUtils';
 import HandymanHomeInfo from './../components/HandymanHomeInfo'
 import Comment from './../components/Comment'
+import HandymanUserInfo from './../components/HandymanUserInfo'
 
 export default class HomepageHandymanScreen extends React.Component {
 
@@ -10,26 +11,39 @@ export default class HomepageHandymanScreen extends React.Component {
         super(props);
         this.state = {
             commentsLoading: true,
-            comments: []
+            comments: [],
+            user: null
         };            
         const { navigation } = this.props;
         this.handymanData = navigation.getParam('handymanData', 'ERROR');
+        this.handymanInfoView = null;
     }
 
     async componentDidMount(){
         comments = await FirebaseUtils.getCommentsForHandyman(this.handymanData.username);
+        user = await AsyncStorage.getItem("user"); 
         this.setState({
             commentsLoading: false,
-            comments: comments
+            comments: comments,
+            user: JSON.parse(user)
         }); 
     }
     
     render() {
+        if(this.state.user != null){
+            //handyman info with option for creating requests for hanyman (only for logged user)
+            this.handymanInfoView = <HandymanUserInfo key={this.handymanData.username} handymanData={this.handymanData} navigation={this.props.navigation}/> ;
+        }
+        else{
+            //just viewing handyman info without option for creating requests for hanyman (no logging needed)
+            this.handymanInfoView = <HandymanHomeInfo key={this.handymanData.username} handymanData={this.handymanData}/> ;
+        }
         if(this.state.commentsLoading){
+            //while comment are loading
             return (
                 <View style={styles.container}>
                     <Text style={styles.title}>Handyman {this.handymanData.firstName}</Text>
-                    <HandymanHomeInfo key={this.handymanData.username} handymanData={this.handymanData}/>            
+                    {this.handymanInfoView}           
                     <Text style={styles.title}>Comments:</Text>
                     <ActivityIndicator/>
                     <Text style={{textAlign: 'center'}}>Loading comments...</Text>
@@ -40,6 +54,7 @@ export default class HomepageHandymanScreen extends React.Component {
             );
         }
         else{
+            //when comments are loaded displaying them
             let commentsView = <Text>No comments...</Text>;
             if(this.state.comments){
                 commentsView = this.state.comments.map((element, inex) => {
@@ -50,7 +65,7 @@ export default class HomepageHandymanScreen extends React.Component {
                 <ScrollView>
                     <View style={styles.container}>
                         <Text style={styles.title}>Handyman {this.handymanData.firstName}</Text>
-                        <HandymanHomeInfo key={this.handymanData.username} handymanData={this.handymanData}/>            
+                        {this.handymanInfoView}           
                         <Text style={styles.title}>Comments:</Text>
                         {commentsView}
                         <TouchableOpacity style={styles.buttonContainer} onPress={() => this.props.navigation.goBack()}>

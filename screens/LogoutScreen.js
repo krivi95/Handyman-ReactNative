@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, AsyncStorage} from 'react-native';
         
 
 export default class LogoutScreen extends React.Component {
@@ -14,7 +14,9 @@ export default class LogoutScreen extends React.Component {
                 <Text style={{textAlign: 'center'}}>NO</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonConfirmContainer} onPress={() => {
-                this.props.navigation.navigate('Home');}}>
+                this.props.navigation.navigate('Home');
+                AsyncStorage.removeItem('user');
+                }}>
                 <Text style={styles.buttonTextContainer}>YES</Text>
             </TouchableOpacity>
           </View>
