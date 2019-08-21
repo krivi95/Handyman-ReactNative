@@ -27,7 +27,12 @@ export default class LoginForm extends Component {
             else{
                 //alert('Successful login!');
                 AsyncStorage.setItem("user", JSON.stringify(user));
-                this.props.navigation.navigate('User');
+                if(user.type == 'user'){
+                    this.props.navigation.navigate('User');
+                }
+                else{
+                    this.props.navigation.navigate('Handyman');
+                }
             }
         }
     }

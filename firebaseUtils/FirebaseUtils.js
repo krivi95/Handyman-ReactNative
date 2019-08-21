@@ -199,6 +199,23 @@ export default class FirebaseUtils extends Component {
         .then(res => console.log(res))
         .catch(err => console.log(err));
     }
+
+    static async getRequestsForHandyman(handymanUsername){
+      allRequests = await FirebaseUtils.getAllRequests();
+      console.log(allRequests);
+      const requestsExist = allRequests.some(request => request.handyman == handymanUsername);
+      if(requestsExist){
+        requests = [];
+        for(key in allRequests){
+          requests.push(allRequests[key]);
+        }
+        console.log(requests);
+        return requests
+      }
+      else{
+          return null;
+      }
+    }
   
 
   }
