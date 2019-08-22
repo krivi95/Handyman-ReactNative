@@ -3,21 +3,35 @@ import {StyleSheet ,Text, TouchableOpacity} from 'react-native';
 
 export default class ArchivedRequest extends Component {
 
-
     getStatusStyle(status){
       //possible statuses: rejected, successful, unsuccessful
-      if(status == 'successful'){
+      if(status == 'pending'){
+          return styles.greyStatus;
+      }
+      else if(status == 'successful' || status == 'confirmed'){
           return styles.greenStatus;
       }
       else{
           return styles.redStatus;
       }
 
-  }
+    }
+
+    processRequest(){
+        if(this.props.requestData.status == 'pending' || this.props.requestData.status == 'confirmed'){
+            this.props.navigation.navigate('ProcessRequestScreen', {
+                requestData: this.props.requestData
+            });
+        }
+    }
     
   render() {
     return (
-        <TouchableOpacity key={this.props.keyvalue} style={styles.requestShortInfo}>
+        <TouchableOpacity 
+            key={this.props.keyvalue} 
+            style={styles.requestShortInfo}
+            onPress={this.processRequest.bind(this)}
+        >
             <Text style={styles.requestName}>{this.props.requestData.user}</Text>
             <Text style={styles.requestText}>Start date: {this.props.requestData.startDate}/5</Text>
             <Text style={styles.requestText}>End date: {this.props.requestData.endDate}</Text>
@@ -29,8 +43,7 @@ export default class ArchivedRequest extends Component {
             </Text>
             <TouchableOpacity style={styles.requestButton}>
                 <Text style={styles.requestButtonText}>{this.props.requestData.user[0]}</Text>
-            </TouchableOpacity>
-             
+            </TouchableOpacity>             
         </TouchableOpacity>      
     );
   }
@@ -59,6 +72,10 @@ const styles = StyleSheet.create({
     },
     requestText: {
         paddingLeft: '25%' 
+    },
+    greyStatus:{
+        paddingLeft: '25%',
+        fontWeight: 'bold'        
     },
     greenStatus:{
         paddingLeft: '25%',

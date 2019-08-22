@@ -2,6 +2,8 @@ import React from 'react';
 import {StyleSheet, Text, View, ActivityIndicator, AsyncStorage, ScrollView} from 'react-native';
 import FirebaseUtils from '../firebaseUtils/FirebaseUtils';
 import ArchivedRequest from './../components/ArchivedRequest'
+import RequestsFilter from './../components/RequestsFilter'
+import { timingSafeEqual } from 'crypto';
 
 
 export default class HandymanHomepageScreen extends React.Component {
@@ -10,18 +12,24 @@ export default class HandymanHomepageScreen extends React.Component {
         super(props);
         this.state = {
           isLoading: true,
-          archivedRequests: []
+          activeRequests: []
         };    
+    }
+
+    setRequests(filteredRequests){
+      this.setState({
+        activeRequests: filteredRequests
+      }); 
     }
 
     async componentDidMount(){
         handyman = await AsyncStorage.getItem('user');
         handyman = JSON.parse(handyman);
         requests = await FirebaseUtils.getRequestsForHandyman(handyman.username);
-        archivedRequests = requests.filter(request => request.status == 'rejected' || request.status == 'successful' || request.status == 'unsuccessful')
+        activeRequests = requests.filter(request => request.status == 'pending' || request.status == 'confirmed');
         this.setState({
           isLoading: false,
-          archivedRequests: archivedRequests
+          activeRequests: activeRequests
         }); 
     } 
 
@@ -35,15 +43,15 @@ export default class HandymanHomepageScreen extends React.Component {
             );
           }
           else{
-            let archivedRequestsView = this.state.archivedRequests.map((element, inex) => {
-              return <ArchivedRequest key={element.username + element.handyman} requestData={element}/>
+            let activeRequestsView = this.state.activeRequests.map((element, inex) => {
+              return <ArchivedRequest key={element.username + element.handyman} requestData={element} navigation={this.props.navigation}/>
             }); 
             
             return (
               <View style={{ flex: 1 }}>              
-              <Text style={styles.mainTitle}>My jobs:</Text>
-                <ScrollView style={{marginTop:15}}>
-                  {archivedRequestsView}
+                <RequestsFilter requestsHandler={this.setRequests.bind(this)}/>
+                <ScrollView style={{marginTop:35}}>
+                  {activeRequestsView}
                 </ScrollView>
               </View>
             );
