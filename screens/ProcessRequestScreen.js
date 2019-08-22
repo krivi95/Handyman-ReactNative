@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, View, ScrollView, TextInput, Alert, TouchableOpacity} from 'react-native';
+import FirebaseUtils from './../firebaseUtils/FirebaseUtils'
 
 export default class ProcessRequestScreen extends Component {
 
@@ -26,31 +27,34 @@ export default class ProcessRequestScreen extends Component {
             return 'SUCCESSFUL'
         }
     }
-
-    approveRequest(){
+    async approveRequest(){
         updatedRequestData = this.requestData;
         if(this.requestData.status == 'pending'){
             updatedRequestData.status = 'confirmed';
+            await FirebaseUtils.updateRequest(updatedRequestData);
             Alert.alert('Notification', 'You have confirmed user request.');
             this.props.navigation.goBack();
         }
         else if(this.requestData.status == 'confirmed'){
             updatedRequestData.status = 'successful';
+            await FirebaseUtils.updateRequest(updatedRequestData);
             Alert.alert('Notification', 'You have successfully finished the job.');
             this.props.navigation.navigate('HandymanJobsScreen');
         }
     }
 
-    rejectRequest(){
+    async rejectRequest(){
         updatedRequestData = this.requestData;
         if(this.requestData.status == 'pending'){
             updatedRequestData.status = 'rejected';
+            await FirebaseUtils.updateRequest(updatedRequestData);
             Alert.alert('Notification', 'You have rejected user request.');
             this.props.navigation.navigate('HandymanJobsScreen');
 
         }
         else if(this.requestData.status == 'confirmed'){
             updatedRequestData.status = 'unsuccessful';
+            await FirebaseUtils.updateRequest(updatedRequestData);
             Alert.alert('Notification', 'You have unsuccessfully finished the job.');
             this.props.navigation.navigate('HandymanJobsScreen');
         }

@@ -55,7 +55,7 @@ export default class RequestsFilter extends Component {
         if(this.state.urgent){
             activeRequests = activeRequests.filter(request => request.urgent);    
         }
-        this.props.requestsHandler(activeRequests);
+        this.props.requestsHandler(activeRequests, this.state.urgent);
         this.setState({showFilterOptions: false});
     }
 

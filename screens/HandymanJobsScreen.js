@@ -45,7 +45,7 @@ export default class HandymanJobsScreen extends React.Component {
           }
           else{
             let archivedRequestsView = this.state.archivedRequests.map((element, inex) => {
-              return <ArchivedRequest key={element.username + element.handyman} requestData={element}/>
+              return <ArchivedRequest key={element.id} requestData={element}/>
             }); 
             
             return (

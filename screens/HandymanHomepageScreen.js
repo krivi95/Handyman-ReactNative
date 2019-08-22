@@ -12,13 +12,15 @@ export default class HandymanHomepageScreen extends React.Component {
         super(props);
         this.state = {
           isLoading: true,
-          activeRequests: []
+          activeRequests: [],
+          urgentFilter: false
         };    
     }
 
-    setRequests(filteredRequests){
+    setRequests(filteredRequests, urgentFilter){
       this.setState({
-        activeRequests: filteredRequests
+        activeRequests: filteredRequests,
+        urgentFilter: urgentFilter
       }); 
     }
 
@@ -33,6 +35,25 @@ export default class HandymanHomepageScreen extends React.Component {
         }); 
     } 
 
+
+    async componentDidUpdate(prevProps, prevState){
+      if(prevState.activeRequests !== this.state.activeRequests){
+        handyman = await AsyncStorage.getItem('user');
+        handyman = JSON.parse(handyman);
+        requests = await FirebaseUtils.getRequestsForHandyman(handyman.username);
+        activeRequests = requests.filter(request => request.status == 'pending' || request.status == 'confirmed');
+        //urgent filer has been set
+        if(this.state.urgentFilter){
+          activeRequests = activeRequests.filter(request => request.urgent);  
+        }
+        this.setState({
+          isLoading: false,
+          activeRequests: activeRequests
+        });
+      }
+       
+    } 
+
     render() {
         if(this.state.isLoading){
             return (
@@ -44,7 +65,7 @@ export default class HandymanHomepageScreen extends React.Component {
           }
           else{
             let activeRequestsView = this.state.activeRequests.map((element, inex) => {
-              return <ArchivedRequest key={element.username + element.handyman} requestData={element} navigation={this.props.navigation}/>
+              return <ArchivedRequest key={element.id} requestData={element} navigation={this.props.navigation}/>
             }); 
             
             return (

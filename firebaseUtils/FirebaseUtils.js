@@ -182,9 +182,12 @@ export default class FirebaseUtils extends Component {
     }
 
     static async createNewHandymanRequest(user, handyman, status, startDate, endDate, urgent, address, number, payment){
+      requests = await FirebaseUtils.getAllRequests();
+      id = requests.length + 1;
       fetch("https://handyman-react.firebaseio.com/requests.json", {
         method: "POST",
         body: JSON.stringify({
+          'id': id,
           'user': user,
           'handyman': handyman,
           'status': status,
@@ -217,6 +220,35 @@ export default class FirebaseUtils extends Component {
       }
     }
   
+    static async getRequestFirebaseID(requestID){
+      try {
+        let response = await fetch(
+          'https://handyman-react.firebaseio.com/requests.json',
+        );
+        let responseJson = await response.json();
+        for(key in responseJson){
+          if(responseJson[key].id == requestID){
+            console.log(key);
+            return key;
+          }
+        }
+        return users
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  
+    //getRequestFirebaseID(10);
+  
+    static async updateRequest(newRequestData){
+      key = await FirebaseUtils.getRequestFirebaseID(newRequestData.id);
+      fetch("https://handyman-react.firebaseio.com/requests/" + key + '.json', {
+        method: "PATCH",
+        body: JSON.stringify(newRequestData)
+      })
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    }
 
   }
 
