@@ -68,7 +68,6 @@ export default class HandymanFilter extends Component {
         if(this.state.priceTo != ''){    
             filteredHandymen = filteredHandymen.filter(handyman => handyman.wage <= this.state.priceTo); 
         };
-        console.log(filteredHandymen);
         this.props.handymenHandler(filteredHandymen);
         this.setState({showFilterOptions: false});
     }

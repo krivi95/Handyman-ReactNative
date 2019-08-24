@@ -3,7 +3,7 @@ import { Text, View, Button } from 'react-native';
 import { createBottomTabNavigator,createStackNavigator, createAppContainer } from 'react-navigation';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 //importing screens
-import {HandymanHomepageScreen, HandymanJobsScreen, AccountScreen, LogoutScreen, ProcessRequestScreen} from '../screens/Screens'
+import {HandymanHomepageScreen, HandymanJobsScreen, AccountScreen, LogoutScreen, ProcessRequestScreen, MapScreen} from '../screens/Screens'
  
 
 const HandymanHomeStack = createStackNavigator({
@@ -24,6 +24,21 @@ const HandymanHomeStack = createStackNavigator({
     },
     ProcessRequestScreen:{
       screen: ProcessRequestScreen,
+      navigationOptions:({navigation})=>{
+          return{
+            headerTitle: 'Find handyman',
+            headerTintColor: 'white',
+            headerTitleStyle:{
+                color: 'white'
+            },
+            headerStyle:{
+                backgroundColor: '#0080ff'
+            }
+          }  
+        }
+    },
+    MapScreen:{
+      screen: MapScreen,
       navigationOptions:({navigation})=>{
           return{
             headerTitle: 'Find handyman',
@@ -131,7 +146,7 @@ const HandymanTabNavigator = createBottomTabNavigator({
       }  
   },
   {
-    initialRouteName:'AccountStack',
+    initialRouteName:'HandymanHomeStack',
     defaultNavigationOptions:{
       tabBarVisible: true
     }

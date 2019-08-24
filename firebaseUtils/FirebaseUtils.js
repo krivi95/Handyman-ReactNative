@@ -65,7 +65,7 @@ export default class FirebaseUtils extends Component {
           'type': type,
           'rating': '',
           'jobsDone': '',
-          'commentsNumber':'',
+          'commentsNumber':'0',
           'wage':'',
           'speciality':''
         })
@@ -115,7 +115,6 @@ export default class FirebaseUtils extends Component {
         let responseJson = await response.json();
         for(key in responseJson){
           if(responseJson[key].username == username){
-            console.log(key);
             return key;
           }
         }
@@ -126,7 +125,6 @@ export default class FirebaseUtils extends Component {
     }
   
     static async updateUser(newUserData){
-      console.log(newUserData);
       key = await FirebaseUtils.getUserFirebaseID(newUserData.username);
       fetch("https://handyman-react.firebaseio.com/users/" + key + ".json", {
         method: "PATCH",
@@ -168,7 +166,6 @@ export default class FirebaseUtils extends Component {
     }
 
     static async createNewComment(user, handyman, text){
-      console.log(user + handyman + text)
       fetch("https://handyman-react.firebaseio.com/comments.json", {
         method: "POST",
         body: JSON.stringify({
@@ -196,7 +193,9 @@ export default class FirebaseUtils extends Component {
           'urgent': urgent,
           'address': address,
           'number': number,
-          'payment': payment
+          'payment': payment,
+          'latitude': 44.7999281,
+          'longitude': 20.4080255
         })
       })
         .then(res => console.log(res))
@@ -205,14 +204,12 @@ export default class FirebaseUtils extends Component {
 
     static async getRequestsForHandyman(handymanUsername){
       allRequests = await FirebaseUtils.getAllRequests();
-      console.log(allRequests);
       const requestsExist = allRequests.some(request => request.handyman == handymanUsername);
       if(requestsExist){
         requests = [];
         for(key in allRequests){
           requests.push(allRequests[key]);
         }
-        console.log(requests);
         return requests
       }
       else{
@@ -228,7 +225,6 @@ export default class FirebaseUtils extends Component {
         let responseJson = await response.json();
         for(key in responseJson){
           if(responseJson[key].id == requestID){
-            console.log(key);
             return key;
           }
         }

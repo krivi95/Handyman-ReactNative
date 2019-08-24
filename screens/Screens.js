@@ -10,6 +10,7 @@ import CreateRequestScreen from './CreateRequestScreen'
 import HandymanHomepageScreen from './HandymanHomepageScreen'
 import HandymanJobsScreen from './HandymanJobsScreen'
 import ProcessRequestScreen from './ProcessRequestScreen'
+import MapScreen from './MapScreen'
 
 export {
     HomepageScreen,
@@ -23,5 +24,6 @@ export {
     CreateRequestScreen,
     HandymanHomepageScreen,
     HandymanJobsScreen,
-    ProcessRequestScreen
+    ProcessRequestScreen,
+    MapScreen
 }
