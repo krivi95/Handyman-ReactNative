@@ -53,6 +53,10 @@ export default class CreateRequest extends React.Component {
     async createNewhandymanRequest(){
         user = await AsyncStorage.getItem('user');
         user = JSON.parse(user);
+        if(!user.username || !this.handymanData.username || !this.state.startDate || !this.state.endDate || !this.state.address || !this.state.number || !this.state.paymentType){
+            alert('Please enter all information');
+            return;
+        }
         FirebaseUtils.createNewHandymanRequest(user.username, this.handymanData.username, 'pending', this.state.startDate, this.state.endDate, this.state.urgent, this.state.address, this.state.number, this.state.paymentType);
         this.props.navigation.navigate('UserRequestsScreen');
     }
@@ -225,6 +229,7 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     }, 
     inputContainer:{
+        flex: 0.5,
         flexDirection:'column', 
         margin: 3
     },

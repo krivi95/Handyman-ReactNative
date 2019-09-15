@@ -246,6 +246,7 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     }, 
     inputContainer:{
+        flex: 0.5,
         flexDirection:'column', 
         margin: 3
     },

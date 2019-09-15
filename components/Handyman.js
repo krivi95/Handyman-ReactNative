@@ -11,7 +11,8 @@ export default class HandymanHome extends Component {
                 handymanData: this.props.handymanData
             })}
         >
-            <Text style={styles.handymanName}>{this.props.handymanData.firstName}</Text>
+            <Text style={styles.handymanName}>{this.props.handymanData.firstName}</Text>         
+            <Text style={styles.handymanText}>Wage: {this.props.handymanData.wage}$</Text>
             <Text style={styles.handymanText}>Rating: {this.props.handymanData.rating}/5</Text>
             <Text style={styles.handymanText}>Jobs done: {this.props.handymanData.jobsDone}</Text>
             <Text style={styles.handymanText}>Comments: {this.props.handymanData.commentsNumber}</Text>

@@ -50,25 +50,35 @@ export default class HandymanFilter extends Component {
     };
 
     async search(){
-        if(this.state.priceFrom > this.state.priceTo){
-            alert('Incorrect inputs.');
-            return;
+        if(this.state.priceFrom != '' && this.state.priceTo!= ''){
+            if(parseInt(this.state.priceFrom, 10) > parseInt(this.state.priceTo, 10)){
+                alert('Incorrect inputs.');
+                return;
+            }
         }
         handymen = await FirebaseUtils.getUserByType("handyman");
         filteredHandymen = [];
         if(this.state.speciality != ''){
-            filteredHandymen = handymen.filter(handyman => handyman.speciality == this.state.speciality); 
+            if(this.state.speciality != 'all'){
+                filteredHandymen = handymen.filter(handyman => handyman.speciality == this.state.speciality); 
+            }
+            else{
+                filteredHandymen = handymen;
+            }
         };
         if(this.state.minJobsDone != ''){
-            filteredHandymen = filteredHandymen.filter(handyman => handyman.jobsDone >= this.state.minJobsDone); 
+            filteredHandymen = filteredHandymen.filter(handyman => handyman.jobsDone >= parseInt(this.state.minJobsDone, 10)); 
         };
         if(this.state.priceFrom != ''){
-            filteredHandymen = filteredHandymen.filter(handyman => handyman.wage >= this.state.priceFrom); 
+            filteredHandymen = filteredHandymen.filter(handyman => handyman.wage >= parseInt(this.state.priceFrom), 10); 
         };
         if(this.state.priceTo != ''){    
             filteredHandymen = filteredHandymen.filter(handyman => handyman.wage <= this.state.priceTo); 
         };
         this.props.handymenHandler(filteredHandymen);
+        this.state.minJobsDone = '';
+        this.state.priceFrom = '';
+        this.state.priceTo = '';
         this.setState({showFilterOptions: false});
     }
 
@@ -102,6 +112,7 @@ export default class HandymanFilter extends Component {
                                     onValueChange={(itemValue, itemIndex) =>
                                         this.setState({speciality: itemValue})
                                     }>
+                                    <Picker.Item label="All" value="all" />
                                     <Picker.Item label="General" value="general" />
                                     <Picker.Item label="Electrician" value="electrician" />
                                     <Picker.Item label="Plumber" value="plumber" />

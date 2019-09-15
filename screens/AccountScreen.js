@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, View, ActivityIndicator, StyleSheet, AsyncStorage} from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import User from './../components/User';
+import UserHandyman from './../components/UserHandyman';
         
 
 export default class AccountScreen extends React.Component {
@@ -31,11 +32,21 @@ export default class AccountScreen extends React.Component {
         </View>
         );
     }
-    else{
+    else if(this.state.user.type == 'user'){
+      //different account screen for user and handyman (handyman has some additional fields)
       return (
         <View>
           <KeyboardAwareScrollView>
             <User userData={this.state.user} navigation={this.props.navigation}/>
+          </KeyboardAwareScrollView>
+        </View>
+      );
+    }
+    else{
+      return (
+        <View>
+          <KeyboardAwareScrollView>
+            <UserHandyman userData={this.state.user} navigation={this.props.navigation}/>
           </KeyboardAwareScrollView>
         </View>
       );

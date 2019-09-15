@@ -20,6 +20,7 @@ export default class HandymanUserInfo extends Component {
             style={styles.handymanShortInfo}
         >
             <Text style={styles.handymanName}>{this.props.handymanData.username}</Text>            
+            <Text style={styles.handymanText}>Wage: {this.props.handymanData.wage}$</Text>
             <Text style={styles.handymanText}>Speciality: {this.props.handymanData.speciality}</Text>            
             <Text style={styles.handymanText}>First name: {this.props.handymanData.firstName}</Text>
             <Text style={styles.handymanText}>Last name: {this.props.handymanData.lastName}</Text>            

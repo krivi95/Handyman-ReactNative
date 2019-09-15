@@ -156,7 +156,9 @@ export default class FirebaseUtils extends Component {
       if(requestsExist){
         requests = [];
         for(key in allRequests){
-          requests.push(allRequests[key]);
+          if(allRequests[key].user == username){
+            requests.push(allRequests[key]);
+          }
         }
         return requests
       }
@@ -208,7 +210,9 @@ export default class FirebaseUtils extends Component {
       if(requestsExist){
         requests = [];
         for(key in allRequests){
-          requests.push(allRequests[key]);
+          if(allRequests[key].handyman == handymanUsername){
+            requests.push(allRequests[key]);
+          }
         }
         return requests
       }

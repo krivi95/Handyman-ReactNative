@@ -11,16 +11,17 @@ export default class MapScreen extends React.Component {
         this.activeRequests = navigation.getParam('activeRequests', 'ERROR');    
         this.state = {
             isLoading: true,
-            longitude: '',
-            latitude: ''
+            longitude: 20.4752433,
+            latitude: 44.8054413
         }
     }
 
     async getCurrentPosition() {
+        //if can't load geolocation use default location from constructon
         return new Promise((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(
                 position => resolve(position.coords),
-                error => reject(error)
+                error => this.setState({isLoading: false})
             )});
     }
 
@@ -38,8 +39,10 @@ export default class MapScreen extends React.Component {
 
     async componentDidMount(){
         let location = await this.getUserLocation();
-        this.state.longitude = location.longitude;
-        this.state.latitude = location.latitude;
+        if(location.longitude){
+            this.state.longitude = location.longitude;
+            this.state.latitude = location.latitude;
+        }
         this.setState({isLoading: false});
     }
         

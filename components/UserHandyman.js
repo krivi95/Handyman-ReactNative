@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet ,Text, View, TouchableOpacity, TextInput, AsyncStorage} from 'react-native';
+import {StyleSheet ,Text, View, TouchableOpacity, TextInput, Picker, AsyncStorage} from 'react-native';
 import FirebaseUtils from '../firebaseUtils/FirebaseUtils'
 
 export default class User extends Component {
@@ -7,6 +7,8 @@ export default class User extends Component {
     constructor(props){
         super(props);
         this.state = {
+            wage: '',
+            speciality: '',
             firstName: '',
             lastName: '',
             number: '',
@@ -19,6 +21,8 @@ export default class User extends Component {
     
     clearInputs(newUserData){
         this.setState({
+            wage: '',
+            speciality: '',
             firstName: '',
             lastName: '',
             number: '',
@@ -64,6 +68,12 @@ export default class User extends Component {
     }
 
     updateAccountData(newUserData){
+        if(this.state.wage != ''){
+            newUserData.wage = this.state.wage;
+        }
+        if(this.state.speciality != ''){
+            newUserData.speciality = this.state.speciality;
+        }
         if(this.state.firstName != ''){
             newUserData.firstName = this.state.firstName;
         }
@@ -95,6 +105,35 @@ export default class User extends Component {
             <Text style={styles.mainTitle}>Edit Account</Text>
             <TouchableOpacity activeOpacity={1} style={styles.userDataBar}>
                 <View style={{flex:1, flexDirection:'column', alignItems:'center'}}>
+                    <View style={styles.rowConntainer}>                        
+                        <View style={styles.inputContainer}>
+                            <TextInput 
+                                value={this.state.wage}
+                                placeholder={this.props.userData.wage + "$"} 
+                                style={styles.textInputContainer}
+                                keyboardType = 'phone-pad'
+                                onChangeText={(wage) => this.setState({wage})}
+                            />
+                            <Text style={styles.textLabel}>Wage</Text>
+                        </View>
+                        <View style={styles.inputContainer}>
+                            <Picker 
+                                value = {this.state.speciality}
+                                selectedValue={this.props.userData.speciality}                                
+                                style={styles.pickerInputContainer}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    this.setState({speciality: itemValue})
+                                }>
+                                <Picker.Item label="General" value="general" />
+                                <Picker.Item label="Electrician" value="electrician" />
+                                <Picker.Item label="Plumber" value="plumber" />
+                                <Picker.Item label="Carpenter" value="carpenter" />
+                                <Picker.Item label="Painter" value="painter" />
+                                <Picker.Item label="Gardener" value="gardener" />
+                            </Picker>
+                            <Text style={styles.textLabel}>Speciality</Text>
+                        </View>
+                    </View>
                     <View style={styles.rowConntainer}>
                         <View style={styles.inputContainer}>
                             <TextInput 
@@ -192,6 +231,12 @@ const styles = StyleSheet.create({
         fontSize: 12,
         textAlign: 'center'
     },
+    infoLabel: {
+        paddingLeft: 15,
+        paddingRight: 15,
+        fontSize: 12,
+        textAlign: 'center'
+    },
     userDataBar: {
         justifyContent: 'center',
         backgroundColor: '#FFFFFF',
@@ -251,6 +296,15 @@ const styles = StyleSheet.create({
         opacity: 0.8,
         height: 40,
         minWidth: 80,
+        borderBottomWidth: 2,
+        borderBottomColor: '#ededed'  
+    },
+    pickerInputContainer:{
+        alignSelf: 'center',
+        textAlign: 'center',
+        opacity: 0.8,
+        height: 40,
+        width: 140,
         borderBottomWidth: 2,
         borderBottomColor: '#ededed'  
     }
