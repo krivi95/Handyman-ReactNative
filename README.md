@@ -16,20 +16,20 @@ This implementation was done as project work on the course [User Interface Desig
 1. Users can search for the desired handyman on this system. In order to book the handyman for the certain job, they must first create an account and only  then they can book the job and manage their booking requests. 
 
 <p align="center">
-    <img src="./demo/ReactNative1.gif" width="50%" height="80%">
+    <img src="./demo/ReactNative1.gif" width="35%" height="80%">
 </p>
 
 2. After logging in to the app, they would be able to book the job with the selected handyman, by providing all necessary information and other details related to the job request.
 
 <p align="center">
-    <img src="./demo/ReactNative2.gif" width="50%" height="80%">
+    <img src="./demo/ReactNative2.gif" width="35%" height="80%">
 </p>
 
 ### Managing bookings
 Once the handyman has created an account with all necessary info, users would be able to find him on the platform. Handyman can use this app to accept or decline job requests and to manage all of his job requests. 
 
 <p align="center">
-    <img src="./demo/ReactNative3.gif" width="50%" height="80%">
+    <img src="./demo/ReactNative3.gif" width="35%" height="80%">
 </p>
 
 
