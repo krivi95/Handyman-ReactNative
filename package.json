@@ -22,7 +22,7 @@
     "punycode": "^1.2.4",
     "querystring-es3": "^0.2.1",
     "react": "16.6.3",
-    "react-native": "^0.58.5",
+    "react-native": "^0.70.3",
     "react-native-crypto": "^2.2.0",
     "react-native-gesture-handler": "^1.0.15",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
